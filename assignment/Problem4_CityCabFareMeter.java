@@ -1,0 +1,6 @@
+import java.util.*;
+abstract class Cab { double km; Cab(double k){km=k;} abstract double rate(); boolean nightService(){return false;} double fare(){return Math.max(100,km*rate())*(nightService()?1.2:1);}}
+class Mini extends Cab { Mini(double k){super(k);} double rate(){return 10;} }
+class Sedan extends Cab { Sedan(double k){super(k);} double rate(){return 14;} boolean nightService(){return true;} }
+class SUV extends Cab { SUV(double k){super(k);} double rate(){return 18;} boolean nightService(){return true;} }
+public class Problem4_CityCabFareMeter { public static void main(String[]a){Scanner s=new Scanner(System.in);int n=s.nextInt();double total=0;for(int i=0;i<n;i++){String t=s.next();double km=s.nextDouble();String time=s.next();Cab c=t.equals("MINI")?new Mini(km):t.equals("SEDAN")?new Sedan(km):new SUV(km);if(time.equals("NIGHT")&&!c.nightService()){System.out.println(t+": night service not available");continue;}double f=c.fare();total+=f;System.out.printf("%s: %.2f%n",t,f);}System.out.printf("Total: %.2f%n",total);}}

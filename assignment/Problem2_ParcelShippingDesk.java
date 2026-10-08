@@ -1,0 +1,6 @@
+import java.util.*;
+abstract class Parcel { double w,value; Parcel(double w,double v){this.w=w;this.value=v;} abstract double charge(); abstract double insurance(); }
+class StandardParcel extends Parcel { StandardParcel(double w,double v){super(w,v);} double charge(){return 40+10*w;} double insurance(){return 0;} }
+class ExpressParcel extends Parcel { ExpressParcel(double w,double v){super(w,v);} double charge(){return 80+15*w;} double insurance(){return .02*value;} }
+class FragileParcel extends Parcel { FragileParcel(double w,double v){super(w,v);} double charge(){return 40+10*w+50;} double insurance(){return .02*value;} }
+public class Problem2_ParcelShippingDesk { public static void main(String[]a){Scanner s=new Scanner(System.in);int n=s.nextInt();double grand=0;for(int i=0;i<n;i++){String t=s.next();double w=s.nextDouble(),v=s.nextDouble();Parcel p=t.equals("STANDARD")?new StandardParcel(w,v):t.equals("EXPRESS")?new ExpressParcel(w,v):new FragileParcel(w,v);double c=p.charge(),ins=p.insurance(),tot=c+ins;grand+=tot;System.out.printf("%s: Charge=%.2f Insurance=%.2f Total=%.2f%n",t,c,ins,tot);}System.out.printf("Grand Total: %.2f%n",grand);}}
