@@ -1,0 +1,6 @@
+import java.util.*;
+abstract class Plot { String owner; Plot(String o){owner=o;} abstract double area(); }
+class CirclePlot extends Plot { double r; CirclePlot(String o,double r){super(o);this.r=r;} double area(){return Math.PI*r*r;} }
+class RectanglePlot extends Plot { double l,w; RectanglePlot(String o,double l,double w){super(o);this.l=l;this.w=w;} double area(){return l*w;} }
+class TrianglePlot extends Plot { double b,h; TrianglePlot(String o,double b,double h){super(o);this.b=b;this.h=h;} double area(){return .5*b*h;} }
+public class Problem1_GardenPlotAreaReport { public static void main(String[]a){Scanner s=new Scanner(System.in);int n=s.nextInt();double total=0;for(int i=0;i<n;i++){String t=s.next(),o=s.next();Plot p=t.equals("CIRCLE")?new CirclePlot(o,s.nextDouble()):t.equals("RECTANGLE")?new RectanglePlot(o,s.nextDouble(),s.nextDouble()):new TrianglePlot(o,s.nextDouble(),s.nextDouble());double x=p.area();total+=x;System.out.printf("%s (%s): %.2f%n",o,t,x);}System.out.printf("Total Area: %.2f%n",total);}}
