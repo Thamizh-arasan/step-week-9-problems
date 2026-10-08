@@ -1,0 +1,7 @@
+import java.util.*;
+abstract class Appliance { double hours; Appliance(double h){hours=h;} abstract double power(); boolean saver(){return false;} double units(boolean useSaver){double u=power()*hours/1000;return useSaver&&saver()?u*.75:u;} }
+class Fridge extends Appliance { Fridge(double h){super(h);} double power(){return 150;} }
+class AC extends Appliance { AC(double h){super(h);} double power(){return 1500;} boolean saver(){return true;} }
+class TV extends Appliance { TV(double h){super(h);} double power(){return 100;} }
+class Washer extends Appliance { Washer(double h){super(h);} double power(){return 500;} boolean saver(){return true;} }
+public class Problem5_HomeApplianceEnergyReport { public static void main(String[]a){Scanner s=new Scanner(System.in);int n=s.nextInt();double total=0;for(int i=0;i<n;i++){String t=s.next();double h=s.nextDouble();boolean save=s.hasNext("SAVER");if(save)s.next();Appliance x=t.equals("FRIDGE")?new Fridge(h):t.equals("AC")?new AC(h):t.equals("TV")?new TV(h):new Washer(h);if(save&&!x.saver()){System.out.println(t+": saver mode not supported");continue;}double u=x.units(save),c=u*8;total+=c;System.out.printf("%s: Units=%.2f Cost=%.2f%n",t,u,c);}System.out.printf("Total Cost: %.2f%n",total);}}
